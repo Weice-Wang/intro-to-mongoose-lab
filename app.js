@@ -34,7 +34,7 @@ const runQueries = async () => {
   // console.log(`Your name is ${username}`);
   console.log("Welcome to the CRM!\n");
 
-  function menu() {
+  function showMenu() {
     console.log(`What would you like to do?
   
     1. Create a customer
@@ -44,27 +44,32 @@ const runQueries = async () => {
     5. Quit
     `);
   }
-  menu();
 
-  const input = prompt("Number of action to run: ");
-  console.log(`# user inputs ${input} `);
+  let input = "";
 
-  if (input === "1") {
-    const userName = prompt("What is your name? ");
-    const userAge = prompt("What is your age ");
-    const customerData = {
-      name: `${userName}`,
-      age: Number(userAge),
-    };
-    const customer = await Customer.create(customerData);
-    console.log(`Customer created: `, customer);
-  }
-
-  if (input === "2") {
-    const customers = await Customer.find({});
-    console.log("All customers:", customers);
-  }
-
-  if (input === "3") {
+  while (true) {
+    showMenu();
+    input = prompt("Number of action to run: ");
+    console.log(`# user inputs ${input} `);
+    if (input === "1") {
+      const userName = prompt("What is your name? ");
+      const userAge = prompt("What is your age ");
+      const customerData = {
+        name: `${userName}`,
+        age: Number(userAge),
+      };
+      const customer = await Customer.create(customerData);
+      console.log(`Customer created: `, customer);
+    } else if (input === "2") {
+      const customers = await Customer.find({});
+      console.log("All customers:", customers);
+    } else if (input === "3") {
+    } else if (input === "4") {
+    } else if (input === "5") {
+      console.log("Exiting...");
+      break;
+    } else {
+      console.log("Invalid input");
+    }
   }
 };
