@@ -29,9 +29,6 @@ connect();
 /*------------------------------ Query Functions -----------------------------*/
 
 const runQueries = async () => {
-  // const username = prompt("What is your name? ");
-
-  // console.log(`Your name is ${username}`);
   console.log("Welcome to the CRM!\n");
 
   function showMenu() {
@@ -47,6 +44,7 @@ const runQueries = async () => {
 
   let input = "";
 
+  // Showing options after each action
   while (true) {
     showMenu();
     input = prompt("Number of action to run: ");
@@ -68,6 +66,7 @@ const runQueries = async () => {
   }
 };
 
+// Creating New Customer
 const createCustomer = async () => {
   const userName = prompt("What is your name? ");
   const userAge = Number(prompt("What is your age "));
@@ -79,11 +78,13 @@ const createCustomer = async () => {
   console.log(`Customer created: `, customer);
 };
 
+// View All Customer
 const viewCustomers = async () => {
   const customers = await Customer.find({});
-  console.log("Belpw is a list of customers:", customers);
+  console.log("Below is a list of customers:", customers);
 };
 
+// Updating Customer
 const updateCustomer = async () => {
   const customers = await Customer.find({});
   console.log("Below is a list of customers:", customers);
@@ -106,6 +107,7 @@ const updateCustomer = async () => {
   console.log("Updated customer:", updateCm);
 };
 
+// Deleting Customer
 const deleteCustomer = async () => {
   const customers = await Customer.find({});
   console.log("Below is a list of customers:", customers);
