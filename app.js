@@ -52,19 +52,13 @@ const runQueries = async () => {
     input = prompt("Number of action to run: ");
     console.log(`# user inputs ${input} `);
     if (input === "1") {
-      const userName = prompt("What is your name? ");
-      const userAge = prompt("What is your age ");
-      const customerData = {
-        name: `${userName}`,
-        age: Number(userAge),
-      };
-      const customer = await Customer.create(customerData);
-      console.log(`Customer created: `, customer);
+      await createCustomer();
     } else if (input === "2") {
-      const customers = await Customer.find({});
-      console.log("All customers:", customers);
+      await viewCustomers();
     } else if (input === "3") {
+      await updateCustomer();
     } else if (input === "4") {
+      await deleteCustomer();
     } else if (input === "5") {
       console.log("Exiting...");
       break;
@@ -72,4 +66,52 @@ const runQueries = async () => {
       console.log("Invalid input");
     }
   }
+};
+
+const createCustomer = async () => {
+  const userName = prompt("What is your name? ");
+  const userAge = Number(prompt("What is your age "));
+  const customerData = {
+    name: userName,
+    age: userAge,
+  };
+  const customer = await Customer.create(customerData);
+  console.log(`Customer created: `, customer);
+};
+
+const viewCustomers = async () => {
+  const customers = await Customer.find({});
+  console.log("Belpw is a list of customers:", customers);
+};
+
+const updateCustomer = async () => {
+  const customers = await Customer.find({});
+  console.log("Below is a list of customers:", customers);
+  const userID = prompt(
+    "Copy and paste the id of the customer you would like to update here:"
+  );
+  console.log(`# user inputs ${userID} `);
+  const newName = prompt("What is the customers new name?");
+  console.log(`# user inputs ${newName} `);
+  const newAge = Number(prompt("What is the customers new age?"));
+  console.log(`# user inputs ${newAge} `);
+  const updateCm = await Customer.findByIdAndUpdate(
+    userID,
+    {
+      name: newName,
+      age: newAge,
+    },
+    { new: true }
+  );
+  console.log("Updated customer:", updateCm);
+};
+
+const deleteCustomer = async () => {
+  const customers = await Customer.find({});
+  console.log("Below is a list of customers:", customers);
+  const userID = prompt(
+    "Copy and paste the id of the customer you would like to delete here:"
+  );
+  const removedCm = await Customer.findByIdAndDelete(userID);
+  console.log("Removed customer:", removedCm);
 };
